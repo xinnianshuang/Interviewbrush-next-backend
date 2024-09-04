@@ -1,5 +1,5 @@
 -- 初始数据
-use InterviewBrush;
+use interviewbrush;
 
 -- 用户表初始数据（密码是 12345678）
 INSERT INTO user (id, userAccount, userPassword, unionId, mpOpenId, userName, userAvatar, userProfile, userRole)

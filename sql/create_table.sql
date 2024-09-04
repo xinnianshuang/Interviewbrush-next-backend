@@ -1,8 +1,8 @@
 -- 创建库
-create database if not exists InterviewBrush;
+create database if not exists interviewbrush;
 
 -- 切换库
-use InterviewBrush;
+use interviewbrush;
 
 -- 用户表
 create table if not exists user
