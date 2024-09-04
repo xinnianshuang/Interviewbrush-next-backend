@@ -9,8 +9,6 @@ import java.util.List;
 
 /**
  * 查询题目请求
- *
-
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -45,6 +43,11 @@ public class QuestionQueryRequest extends PageRequest implements Serializable {
      * 标签列表
      */
     private List<String> tags;
+
+    /**
+     * 推荐答案
+     */
+    private String answer;
 
     /**
      * 创建用户 id

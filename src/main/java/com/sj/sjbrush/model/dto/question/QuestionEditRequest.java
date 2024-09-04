@@ -7,8 +7,6 @@ import java.util.List;
 
 /**
  * 编辑题目请求
- *
-
  */
 @Data
 public class QuestionEditRequest implements Serializable {
@@ -32,6 +30,11 @@ public class QuestionEditRequest implements Serializable {
      * 标签列表
      */
     private List<String> tags;
+
+    /**
+     * 推荐答案
+     */
+    private String answer;
 
     private static final long serialVersionUID = 1L;
 }
