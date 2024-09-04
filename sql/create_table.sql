@@ -1,8 +1,8 @@
 -- 创建库
-create database if not exists mianshiya;
+create database if not exists InterviewBrush;
 
 -- 切换库
-use mianshiya;
+use InterviewBrush;
 
 -- 用户表
 create table if not exists user
