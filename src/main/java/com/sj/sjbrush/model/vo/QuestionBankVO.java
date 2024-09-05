@@ -3,6 +3,7 @@ package com.sj.sjbrush.model.vo;
 import com.sj.sjbrush.model.entity.QuestionBank;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -52,6 +53,11 @@ public class QuestionBankVO implements Serializable {
      * 创建用户信息
      */
     private UserVO user;
+
+    /**
+     * 题库里的题目列表（分页）
+     */
+    Page<QuestionVO> questionPage;
 
     /**
      * 封装类转对象
