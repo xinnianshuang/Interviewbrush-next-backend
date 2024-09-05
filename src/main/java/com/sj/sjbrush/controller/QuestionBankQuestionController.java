@@ -26,8 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 题库题目关联接口
- *
-
  */
 @RestController
 @RequestMapping("/questionBankQuestion")
@@ -164,7 +162,7 @@ public class QuestionBankQuestionController {
      */
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<QuestionBankQuestionVO>> listQuestionBankQuestionVOByPage(@RequestBody QuestionBankQuestionQueryRequest questionBankQuestionQueryRequest,
-                                                               HttpServletRequest request) {
+                                                                                       HttpServletRequest request) {
         long current = questionBankQuestionQueryRequest.getCurrent();
         long size = questionBankQuestionQueryRequest.getPageSize();
         // 限制爬虫
@@ -185,7 +183,7 @@ public class QuestionBankQuestionController {
      */
     @PostMapping("/my/list/page/vo")
     public BaseResponse<Page<QuestionBankQuestionVO>> listMyQuestionBankQuestionVOByPage(@RequestBody QuestionBankQuestionQueryRequest questionBankQuestionQueryRequest,
-                                                                 HttpServletRequest request) {
+                                                                                         HttpServletRequest request) {
         ThrowUtils.throwIf(questionBankQuestionQueryRequest == null, ErrorCode.PARAMS_ERROR);
         // 补充查询条件，只查询当前登录用户的数据
         User loginUser = userService.getLoginUser(request);
@@ -200,38 +198,5 @@ public class QuestionBankQuestionController {
         // 获取封装类
         return ResultUtils.success(questionBankQuestionService.getQuestionBankQuestionVOPage(questionBankQuestionPage, request));
     }
-
-//    /**
-//     * 编辑题库题目关联（给用户使用）
-//     *
-//     * @param questionBankQuestionEditRequest
-//     * @param request
-//     * @return
-//     */
-//    @PostMapping("/edit")
-//    public BaseResponse<Boolean> editQuestionBankQuestion(@RequestBody QuestionBankQuestionEditRequest questionBankQuestionEditRequest, HttpServletRequest request) {
-//        if (questionBankQuestionEditRequest == null || questionBankQuestionEditRequest.getId() <= 0) {
-//            throw new BusinessException(ErrorCode.PARAMS_ERROR);
-//        }
-//        // todo 在此处将实体类和 DTO 进行转换
-//        QuestionBankQuestion questionBankQuestion = new QuestionBankQuestion();
-//        BeanUtils.copyProperties(questionBankQuestionEditRequest, questionBankQuestion);
-//        // 数据校验
-//        questionBankQuestionService.validQuestionBankQuestion(questionBankQuestion, false);
-//        User loginUser = userService.getLoginUser(request);
-//        // 判断是否存在
-//        long id = questionBankQuestionEditRequest.getId();
-//        QuestionBankQuestion oldQuestionBankQuestion = questionBankQuestionService.getById(id);
-//        ThrowUtils.throwIf(oldQuestionBankQuestion == null, ErrorCode.NOT_FOUND_ERROR);
-//        // 仅本人或管理员可编辑
-//        if (!oldQuestionBankQuestion.getUserId().equals(loginUser.getId()) && !userService.isAdmin(loginUser)) {
-//            throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
-//        }
-//        // 操作数据库
-//        boolean result = questionBankQuestionService.updateById(questionBankQuestion);
-//        ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
-//        return ResultUtils.success(true);
-//    }
-
     // endregion
 }
