@@ -5,12 +5,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 查询题库题目关联请求
- *
-
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -27,24 +24,14 @@ public class QuestionBankQuestionQueryRequest extends PageRequest implements Ser
     private Long notId;
 
     /**
-     * 搜索词
+     * 题库 id
      */
-    private String searchText;
+    private Long questionBankId;
 
     /**
-     * 标题
+     * 题目 id
      */
-    private String title;
-
-    /**
-     * 内容
-     */
-    private String content;
-
-    /**
-     * 标签列表
-     */
-    private List<String> tags;
+    private Long questionId;
 
     /**
      * 创建用户 id

@@ -9,8 +9,6 @@ import java.util.List;
 
 /**
  * 查询题库请求
- *
-
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -37,14 +35,14 @@ public class QuestionBankQueryRequest extends PageRequest implements Serializabl
     private String title;
 
     /**
-     * 内容
+     * 描述
      */
-    private String content;
+    private String description;
 
     /**
-     * 标签列表
+     * 图片
      */
-    private List<String> tags;
+    private String picture;
 
     /**
      * 创建用户 id

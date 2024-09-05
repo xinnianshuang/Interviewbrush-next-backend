@@ -10,7 +10,6 @@ import com.sj.sjbrush.constant.UserConstant;
 import com.sj.sjbrush.exception.BusinessException;
 import com.sj.sjbrush.exception.ThrowUtils;
 import com.sj.sjbrush.model.dto.questionBankQuestion.QuestionBankQuestionAddRequest;
-import com.sj.sjbrush.model.dto.questionBankQuestion.QuestionBankQuestionEditRequest;
 import com.sj.sjbrush.model.dto.questionBankQuestion.QuestionBankQuestionQueryRequest;
 import com.sj.sjbrush.model.dto.questionBankQuestion.QuestionBankQuestionUpdateRequest;
 import com.sj.sjbrush.model.entity.QuestionBankQuestion;
