@@ -9,15 +9,20 @@ import com.sj.sjbrush.constant.CommonConstant;
 import com.sj.sjbrush.exception.ThrowUtils;
 import com.sj.sjbrush.mapper.QuestionBankQuestionMapper;
 import com.sj.sjbrush.model.dto.questionBankQuestion.QuestionBankQuestionQueryRequest;
+import com.sj.sjbrush.model.entity.Question;
+import com.sj.sjbrush.model.entity.QuestionBank;
 import com.sj.sjbrush.model.entity.QuestionBankQuestion;
 import com.sj.sjbrush.model.entity.User;
 import com.sj.sjbrush.model.vo.QuestionBankQuestionVO;
 import com.sj.sjbrush.model.vo.UserVO;
 import com.sj.sjbrush.service.QuestionBankQuestionService;
+import com.sj.sjbrush.service.QuestionBankService;
+import com.sj.sjbrush.service.QuestionService;
 import com.sj.sjbrush.service.UserService;
 import com.sj.sjbrush.utils.SqlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -37,6 +42,13 @@ public class QuestionBankQuestionServiceImpl extends ServiceImpl<QuestionBankQue
     @Resource
     private UserService userService;
 
+    @Resource
+    @Lazy
+    private QuestionService questionService;
+
+    @Resource
+    private QuestionBankService questionBankService;
+
     /**
      * 校验数据
      *
@@ -46,6 +58,31 @@ public class QuestionBankQuestionServiceImpl extends ServiceImpl<QuestionBankQue
     @Override
     public void validQuestionBankQuestion(QuestionBankQuestion questionBankQuestion, boolean add) {
         ThrowUtils.throwIf(questionBankQuestion == null, ErrorCode.PARAMS_ERROR);
+        // 题目和题库必须存在
+        Long questionId = questionBankQuestion.getQuestionId();
+        if (questionId != null) {
+            Question question = questionService.getById(questionId);
+            ThrowUtils.throwIf(question == null, ErrorCode.NOT_FOUND_ERROR, "题目不存在");
+        }
+        Long questionBankId = questionBankQuestion.getQuestionBankId();
+        if (questionBankId != null) {
+            QuestionBank questionBank = questionBankService.getById(questionBankId);
+            ThrowUtils.throwIf(questionBank == null, ErrorCode.NOT_FOUND_ERROR, "题库不存在");
+        }
+
+        // 不需要校验
+//        // todo 从对象中取值
+//        String title = questionBankQuestion.getTitle();
+//        // 创建数据时，参数不能为空
+//        if (add) {
+//            // todo 补充校验规则
+//            ThrowUtils.throwIf(StringUtils.isBlank(title), ErrorCode.PARAMS_ERROR);
+//        }
+//        // 修改数据时，有参数则校验
+//        // todo 补充校验规则
+//        if (StringUtils.isNotBlank(title)) {
+//            ThrowUtils.throwIf(title.length() > 80, ErrorCode.PARAMS_ERROR, "标题过长");
+//        }
     }
 
     /**
@@ -69,13 +106,12 @@ public class QuestionBankQuestionServiceImpl extends ServiceImpl<QuestionBankQue
         Long questionId = questionBankQuestionQueryRequest.getQuestionId();
         Long userId = questionBankQuestionQueryRequest.getUserId();
         // todo 补充需要的查询条件
-        // JSON 数组查询
         // 精确查询
         queryWrapper.ne(ObjectUtils.isNotEmpty(notId), "id", notId);
         queryWrapper.eq(ObjectUtils.isNotEmpty(id), "id", id);
         queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "userId", userId);
-        queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "questionBankId", questionBankId);
-        queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "questionId", questionId);
+        queryWrapper.eq(ObjectUtils.isNotEmpty(questionBankId), "questionBankId", questionBankId);
+        queryWrapper.eq(ObjectUtils.isNotEmpty(questionId), "questionId", questionId);
         // 排序规则
         queryWrapper.orderBy(SqlUtils.validSortField(sortField),
                 sortOrder.equals(CommonConstant.SORT_ORDER_ASC),

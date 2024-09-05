@@ -31,7 +31,7 @@ public interface QuestionBankService extends IService<QuestionBank> {
      * @return
      */
     QueryWrapper<QuestionBank> getQueryWrapper(QuestionBankQueryRequest questionBankQueryRequest);
-    
+
     /**
      * 获取题库封装
      *
